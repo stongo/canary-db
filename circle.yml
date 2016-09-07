@@ -1,0 +1,28 @@
+machine:
+  services:
+    - cassandra
+    - elasticsearch
+    - rabbitmq-server
+    - redis
+    - riak
+    - beanstalkd
+    - couchbase-server
+    - neo4j
+test:
+  override:
+    # cassandra
+    - lsof -i :7000
+    # elastic search
+    - curl 'localhost:9200/_cat/indices?v'
+    # rabbitmq
+    - curl -i -u guest:guest http://localhost:15672/api/vhosts
+    # redis
+    - redis-cli ping
+    # riak
+    - curl http://127.0.0.1:8098/ping
+    # beeanstalkd
+    - lsof -i :11300
+    # couchbase
+    - curl http://localhost:8091/pools/default
+    # neo4j
+    - curl http://localhost:7474/db/data
